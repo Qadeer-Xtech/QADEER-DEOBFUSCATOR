@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QADEER AI DEOBFUSCATOR</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.14.7/beautify.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+    <div class="header-gradient">
+        <h1 class="main-title">QADEER AI DEOBFUSCATOR</h1>
+    </div>
+    <main>
+        <div class="container">
+            <section class="box">
+                <h2 class="section-title"><span class="icon">🔒</span> Input Obfuscated Code</h2>
+                <textarea id="inputCode" class="code-area" placeholder="Enter your obfuscated JavaScript code here..."></textarea>
+            </section>
+            
+            <section class="box">
+                <h2 class="section-title"><span class="icon">💻</span> Deobfuscated Code</h2>
+                <textarea id="outputCode" class="code-area readonly" readonly placeholder="Your clean code will appear here..."></textarea>
+            </section>
+        </div>
+
+        <div class="options">
+            <input type="checkbox" id="deepScanCheckbox">
+            <label for="deepScanCheckbox">Enable Deep Analysis (Slow)</label>
+        </div>
+
+        <div class="actions">
+            <button id="uploadBtn" class="secondary-btn">Upload File</button>
+            <button id="deobfuscateBtn" class="action-btn">Deobfuscate</button>
+            <button id="downloadBtn" class="secondary-btn">Download File</button>
+            <button id="copyBtn" class="secondary-btn">Copy Result</button>
+        </div>
+
+        <input type="file" id="fileInput" accept=".js,.txt" style="display: none;">
+    </main>
+    <footer>
+        <p class="copyright">
+            © 2025 Qadeer Deobfuscator. All rights reserved.
+        </p>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>
