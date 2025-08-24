@@ -18,9 +18,9 @@ self.onmessage = async (event) => {
     }
 
     // Yahan apni Google AI Studio se hasil ki hui API Key daalen
-    const API_KEY = 'AAPKI_GOOGLE_AI_API_KEY_YAHAN_DAALEN';
+    const API_KEY = 'AIzaSyADDjqQndO2Z0w-YU_PNGqAxgkQIYpx-aE';
 
-    if (API_KEY === 'AAPKI_GOOGLE_AI_API_KEY_YAHAN_DAALEN') {
+    if (API_KEY === 'AIzaSyADDjqQndO2Z0w-YU_PNGqAxgkQIYpx-aE) {
          self.postMessage({ status: 'error', error: "API Key not found. Please add your Google AI API key in the 'worker.js' file." });
          return;
     }
