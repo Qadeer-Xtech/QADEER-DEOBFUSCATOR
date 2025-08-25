@@ -3,45 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QADEER AI DEOBFUSCATOR</title>
+    <title>Qadeer's Personal AI</title>
     <link rel="stylesheet" href="style.css">
-    </head>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@xenova/transformers@2.17.1"></script>
+</head>
 <body>
-    <div class="header-gradient">
-        <h1 class="main-title">QADEER AI DEOBFUSCATOR</h1>
+    <div class="chat-container">
+        <div class="chat-header">
+            <h1>Qadeer's Personal AI</h1>
+            <p id="status">AI Model Loading... Please wait.</p>
+        </div>
+        <div class="chat-box" id="chat-box">
+            </div>
+        <form class="chat-input-form" id="chat-form">
+            <input type="text" id="user-input" placeholder="Ask your AI something..." autocomplete="off" disabled>
+            <button type="submit" id="send-btn" disabled>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M3.478 2.405a.75.75 0 00-.926.94l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.405z" /></svg>
+            </button>
+        </form>
     </div>
-    <main>
-        <div class="container">
-            <section class="box">
-                <h2 class="section-title"><span class="icon">🔒</span> Input Obfuscated Code</h2>
-                <textarea id="inputCode" class="code-area" placeholder="Enter your obfuscated JavaScript code here..."></textarea>
-            </section>
-            
-            <section class="box">
-                <h2 class="section-title"><span class="icon">💻</span> Deobfuscated Code</h2>
-                <textarea id="outputCode" class="code-area readonly" readonly placeholder="Your clean code will appear here..."></textarea>
-            </section>
-        </div>
 
-        <div class="options">
-            <input type="checkbox" id="deepScanCheckbox">
-            <label for="deepScanCheckbox">Enable Deep Analysis (Runs in Background)</label>
-        </div>
-
-        <div class="actions">
-            <button id="uploadBtn" class="secondary-btn">Upload File</button>
-            <button id="deobfuscateBtn" class="action-btn">Deobfuscate</button>
-            <button id="downloadBtn" class="secondary-btn">Download File</button>
-            <button id="copyBtn" class="secondary-btn">Copy Result</button>
-        </div>
-
-        <input type="file" id="fileInput" accept=".js,.txt" style="display: none;">
-    </main>
-    <footer>
-        <p class="copyright">
-            © 2025 Qadeer Deobfuscator. All rights reserved.
-        </p>
-    </footer>
-    <script src="script.js"></script>
+    <script type="module" src="script.js"></script>
 </body>
 </html>
