@@ -1,79 +1,115 @@
-import { pipeline } from '@xenova/transformers';
+document.addEventListener('DOMContentLoaded', () => {
+    // UI ke hisson ko select karna
+    const chatBox = document.getElementById('chat-box');
+    const userInput = document.getElementById('user-input');
+    const chatForm = document.getElementById('chat-form');
 
-// UI ke hisson ko select karna
-const chatBox = document.getElementById('chat-box');
-const userInput = document.getElementById('user-input');
-const chatForm = document.getElementById('chat-form');
-const sendBtn = document.getElementById('send-btn');
-const statusDisplay = document.getElementById('status');
+    // <<< ========================================================== >>>
+    // <<<        YEH HAI HAMARE AI KA ASAL DIMAAG (THE KNOWLEDGE BASE)       >>>
+    // <<< ========================================================== >>>
+    // Yahan hum har sawal ke jawab ke liye rules likhenge.
+    // Aap is list mein hazaron naye rules daal kar isay aur aqalmand bana sakte hain.
+    const knowledgeBase = [
+        // Greetings (Salam Dua)
+        {
+            keywords: ['hello', 'hi', 'salam', 'hey', 'salamun alaikum'],
+            response: "Walaikum Assalam! Main Qadeer ka banaya hua AI hoon. Main aapki kya madad kar sakta hoon?"
+        },
+        // Introduction (Taaruf)
+        {
+            keywords: ['your name', 'kon ho', 'naam kya hai', 'who are you'],
+            response: "Mera naam abhi tak rakha nahi gaya, lekin main Qadeer ka Personal AI Assistant hoon, jo sirf code par chalta hai."
+        },
+        // Creator (Banane Wala)
+        {
+            keywords: ['created you', 'banaya kisne', 'creator', 'developer'],
+            response: "Mujhe Qadeer ne banaya hai, aapke sawalon ke jawab dene ke liye."
+        },
+        // How are you? (Kaise ho?)
+        {
+            keywords: ['how are you', 'kya haal', 'kaise ho', 'kesy ho'],
+            response: "Main aik computer program hoon, isliye main hamesha theek rehta hoon. Aap sunayein?"
+        },
+        // Time (Waqt)
+        {
+            keywords: ['time', 'waqt', 'time kya hai'],
+            response: () => `Abhi Lahore, Pakistan mein waqt hai: ${new Date().toLocaleTimeString('en-US', { timeZone: 'Asia/Karachi' })}`
+        },
+        // Date (Tareekh)
+        {
+            keywords: ['date', 'tareekh', 'din kya hai'],
+            response: () => `Aaj tareekh hai: ${new Date().toLocaleDateString('en-GB', { timeZone: 'Asia/Karachi' })}`
+        },
+        // Capabilities (Salahiyat)
+        {
+            keywords: ['kya kar sakte ho', 'what can you do', 'features'],
+            response: "Main aapke sawalon ke jawab de sakta hoon jo mere knowledge base mein mojood hain. Main waqt aur tareekh bhi bata sakta hoon."
+        },
+        // Thanks (Shukriya)
+        {
+            keywords: ['thanks', 'thank you', 'shukriya'],
+            response: "Koi baat nahi! Khushi hui ke main aapke kaam aa saka."
+        },
+        // Farewell (Alvida)
+        {
+            keywords: ['bye', 'goodbye', 'allah hafiz', 'khuda hafiz'],
+            response: "Aapse baat karke acha laga. Allah Hafiz!"
+        }
+        // Aap yahan naye rules add kar sakte hain...
+        // {
+        //     keywords: ['urdu keyword', 'english keyword'],
+        //     response: "Aapka custom jawab."
+        // }
+    ];
 
-// Is function ka kaam message ko chat box mein dikhana hai
-const addMessage = (text, sender) => {
-    const messageElement = document.createElement('div');
-    messageElement.classList.add('message', `${sender}-message`);
-    messageElement.textContent = text;
-    chatBox.appendChild(messageElement);
-    // Scroll to the latest message
-    chatBox.scrollTop = chatBox.scrollHeight;
-    return messageElement; // Return element to update it live
-};
+    // Is function ka kaam message ko chat box mein dikhana hai
+    const addMessage = (text, sender) => {
+        const messageElement = document.createElement('div');
+        messageElement.classList.add('message', `${sender}-message`);
+        messageElement.textContent = text;
+        chatBox.appendChild(messageElement);
+        chatBox.scrollTop = chatBox.scrollHeight;
+    };
 
-// Main AI function
-const main = async () => {
-    // Shuruaat mein AI ko welcome message dena
-    addMessage("Hello! I am your personal AI. How can I help you today?", 'ai');
+    // Yeh function user ke sawal ko samajh kar jawab dhoondta hai
+    const getAIResponse = (inputText) => {
+        const cleanInput = inputText.toLowerCase().trim();
 
-    // AI model ko load karna. Yeh aik text generation model hai.
-    // Yeh process user ke internet speed par depend karega.
-    statusDisplay.textContent = 'Loading AI Model (~50MB)... This may take a moment.';
-    const generator = await pipeline('text-generation', 'Xenova/distilgpt2');
-    statusDisplay.textContent = 'AI is Ready!';
-
-    // Input aur button ko enable karna jab model load ho jaye
-    userInput.disabled = false;
-    sendBtn.disabled = false;
-    userInput.placeholder = "Ask your AI something...";
+        // Har rule ko check karna
+        for (const rule of knowledgeBase) {
+            // Har rule ke keywords ko check karna
+            for (const keyword of rule.keywords) {
+                if (cleanInput.includes(keyword)) {
+                    // Agar jawab aik function hai (jaise waqt ke liye), to usay chalao
+                    if (typeof rule.response === 'function') {
+                        return rule.response();
+                    }
+                    // Warna seedha jawab de do
+                    return rule.response;
+                }
+            }
+        }
+        
+        // Agar koi rule match na ho to default jawab
+        return "Maaf kijiye, main aapki baat nahi samajh saka. Aap apna sawal wazeh kar sakte hain?";
+    };
     
     // User jab message bhejega to yeh function chalega
-    chatForm.addEventListener('submit', async (e) => {
-        e.preventDefault(); // Page ko reload hone se rokna
+    chatForm.addEventListener('submit', (e) => {
+        e.preventDefault();
         const userText = userInput.value.trim();
         if (userText === '') return;
 
-        // User ka message screen par dikhana
         addMessage(userText, 'user');
-        
-        // Input ko khali karna aur disable karna jab tak AI jawab de
         userInput.value = '';
-        userInput.disabled = true;
-        sendBtn.disabled = true;
-        
-        // AI ka message dikhane ke liye aik khali element banana
-        const aiMessageElement = addMessage('Thinking...', 'ai');
 
-        // AI se jawab generate karwana
-        // `stream` ki wajah se jawab lafz-ba-lafz (word-by-word) aayega
-        const stream = await generator(userText, {
-            max_new_tokens: 100,
-            temperature: 0.7,
-            repetition_penalty: 1.2,
-            early_stopping: true,
-        });
-
-        // Lafz-ba-lafz jawab ko screen par update karna
-        let fullResponse = '';
-        for await (const token of stream) {
-            fullResponse += token.generated_text;
-            aiMessageElement.textContent = fullResponse;
-            chatBox.scrollTop = chatBox.scrollHeight;
-        }
-
-        // Jab jawab mukammal ho jaye to input ko dobara enable karna
-        userInput.disabled = false;
-        sendBtn.disabled = false;
-        userInput.focus();
+        // AI ka jawab thore se delay ke baad dikhana, taake "thinking" feel aaye
+        setTimeout(() => {
+            const aiText = getAIResponse(userText);
+            addMessage(aiText, 'ai');
+        }, 500); // 0.5 second ka delay
     });
-};
 
-// Main function ko call karna
-main();
+    // Shuruaat mein AI ko welcome message dena
+    addMessage("Hello! Main aapka personal, code-based AI hoon. Poochiye!", 'ai');
+});
