@@ -3,17 +3,13 @@
 :root {
     --bg-color: #121212;
     --surface-color: #1e1e1e;
-    --primary-color: #8e2de2;
+    --primary-color: #007acc; /* Changed color for a new look */
     --text-color: #e0e0e0;
-    --user-msg-bg: #4a00e0;
+    --user-msg-bg: #005f9e;
     --ai-msg-bg: #333333;
 }
 
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
     font-family: 'Montserrat', sans-serif;
@@ -39,22 +35,15 @@ body {
 }
 
 .chat-header {
-    background: linear-gradient(90deg, #8e2de2, #4a00e0);
+    background: linear-gradient(90deg, #007acc, #005f9e);
     color: white;
     padding: 20px;
     text-align: center;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
-.chat-header h1 {
-    font-size: 1.5rem;
-    margin-bottom: 5px;
-}
-
-.chat-header p {
-    font-size: 0.8rem;
-    opacity: 0.9;
-}
+.chat-header h1 { font-size: 1.5rem; margin-bottom: 5px; }
+.chat-header p { font-size: 0.8rem; opacity: 0.9; }
 
 .chat-box {
     flex-grow: 1;
@@ -71,6 +60,12 @@ body {
     border-radius: 20px;
     line-height: 1.5;
     word-wrap: break-word;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 .user-message {
@@ -87,11 +82,7 @@ body {
     border-bottom-left-radius: 5px;
 }
 
-.chat-input-form {
-    display: flex;
-    padding: 20px;
-    border-top: 1px solid #2a2a2a;
-}
+.chat-input-form { display: flex; padding: 20px; border-top: 1px solid #2a2a2a; }
 
 #user-input {
     flex-grow: 1;
@@ -105,15 +96,7 @@ body {
     transition: border-color 0.3s;
 }
 
-#user-input:focus {
-    border-color: var(--primary-color);
-}
-
-#user-input:disabled {
-    cursor: not-allowed;
-    background-color: #2a2a2b;
-}
-
+#user-input:focus { border-color: var(--primary-color); }
 
 #send-btn {
     background: var(--primary-color);
@@ -130,16 +113,5 @@ body {
     transition: background-color 0.3s;
 }
 
-#send-btn svg {
-    width: 24px;
-    height: 24px;
-}
-
-#send-btn:hover {
-    background: #6a00b8;
-}
-
-#send-btn:disabled {
-    background-color: #555;
-    cursor: not-allowed;
-}
+#send-btn svg { width: 24px; height: 24px; }
+#send-btn:hover { background: #005f9e; }
