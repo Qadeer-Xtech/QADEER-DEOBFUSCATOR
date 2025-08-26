@@ -1,26 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ur" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Qadeer Khan AI</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>آف لائن کوڈنگ اسسٹنٹ</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="chat-container">
-        <div class="chat-header">
-            <h1>Qadeer Khan AI</h1>
-            <p id="status">Status: Ready & Offline</p>
-        </div>
-        <div class="chat-box" id="chat-box">
-            </div>
-        <form class="chat-input-form" id="chat-form">
-            <input type="text" id="user-input" placeholder="Qadeer Khan se poochein..." autocomplete="off">
-            <button type="submit" id="send-btn">
-                <svg xmlns="http://www.w.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M3.478 2.405a.75.75 0 00-.926.94l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.405z" /></svg>
-            </button>
-        </form>
-    </div>
-    <script type="module" src="script.js"></script>
+  <div class="container">
+    <h1>آف لائن کوڈنگ اسسٹنٹ</h1>
+    <div id="chat-box"></div>
+    <textarea id="user-input" placeholder="سوال یا کوڈنگ مدد کے لیے لکھیں..."></textarea>
+    <button id="send-btn">بھیجیں</button>
+  </div>
+  <script src="script.js"></script>
 </body>
 </html>
